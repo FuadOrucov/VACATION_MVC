@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="59bddb84e051421d8a84e81ef108b1dd" Name="Diagram1">
+        <EntityTypeShape EntityType="Vacation_DBModel.sysdiagrams" Width="1.5" PointX="7.125" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Vacation_DBModel.Tbl_Account" Width="1.5" PointX="5.25" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Vacation_DBModel.Tbl_Departments" Width="1.5" PointX="1.375" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Vacation_DBModel.Tbl_Persons" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Vacation_DBModel.Tbl_Positions" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Vacation_DBModel.Tbl_Rols" Width="1.5" PointX="0.625" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="Vacation_DBModel.Tbl_UseVacationCount" Width="1.5" PointX="5.25" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="Vacation_DBModel.Tbl_VacationAppeals" Width="1.5" PointX="5.125" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Vacation_DBModel.Tbl_VacationDays" Width="1.5" PointX="3.25" PointY="9.375" IsExpanded="true" />
+        <AssociationConnector Association="Vacation_DBModel.FK_Tbl_Account_Tbl_Persons" ManuallyRouted="false" />
+        <AssociationConnector Association="Vacation_DBModel.FK_Tbl_Persons_Tbl_Departments" ManuallyRouted="false" />
+        <AssociationConnector Association="Vacation_DBModel.FK_Tbl_Persons_Tbl_Positions" ManuallyRouted="false" />
+        <AssociationConnector Association="Vacation_DBModel.FK_Tbl_Persons_Tbl_Rols" ManuallyRouted="false" />
+        <AssociationConnector Association="Vacation_DBModel.FK_Tbl_UseVacationCount_Tbl_Persons" ManuallyRouted="false" />
+        <AssociationConnector Association="Vacation_DBModel.FK_Tbl_VacationAppeals_Tbl_Persons" ManuallyRouted="false" />
+        <AssociationConnector Association="Vacation_DBModel.FK_Tbl_VacationDays_Tbl_Positions" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

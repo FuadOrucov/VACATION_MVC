@@ -1,0 +1,66 @@
+﻿@model VOCATION_MVC.Models.Tbl_Persons
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Surname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Surname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RegDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RegDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tbl_Departments.ShortName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tbl_Departments.ShortName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tbl_Positions.Position)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tbl_Positions.Position)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Tbl_Rols.RoleName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tbl_Rols.RoleName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

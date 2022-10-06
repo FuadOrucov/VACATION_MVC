@@ -1,0 +1,592 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Vacation_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Tbl_Account">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonId" Type="int" Nullable="false" />
+          <Property Name="Mail" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="RegDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Departments">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ShortName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Note" Type="nvarchar" MaxLength="500" />
+          <Property Name="RegDate" Type="datetime" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Persons">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Surname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PositionId" Type="int" Nullable="false" />
+          <Property Name="DepartmentId" Type="int" Nullable="false" />
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="RegDate" Type="datetime" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Positions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Position" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="RegDate" Type="datetime" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Tbl_Rols">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RegDate" Type="datetime" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_UseVacationCount">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonId" Type="int" Nullable="false" />
+          <Property Name="UsedVacationDaysCount" Type="int" Nullable="false" />
+          <Property Name="Regdate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_VacationAppeals">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonId" Type="int" Nullable="false" />
+          <Property Name="Status" Type="bit" />
+          <Property Name="RegDate" Type="datetime" Nullable="false" />
+          <Property Name="StartDate" Type="datetime" Nullable="false" />
+          <Property Name="DayCount" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tbl_VacationDays">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DayCount" Type="int" Nullable="false" />
+          <Property Name="PositionId" Type="int" Nullable="false" />
+          <Property Name="Note" Type="nvarchar" MaxLength="200" />
+          <Property Name="RegDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Tbl_Account_Tbl_Persons">
+          <End Role="Tbl_Persons" Type="Self.Tbl_Persons" Multiplicity="1" />
+          <End Role="Tbl_Account" Type="Self.Tbl_Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Persons">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Tbl_Account">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Persons_Tbl_Departments">
+          <End Role="Tbl_Departments" Type="Self.Tbl_Departments" Multiplicity="1" />
+          <End Role="Tbl_Persons" Type="Self.Tbl_Persons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Departments">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Tbl_Persons">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Persons_Tbl_Positions">
+          <End Role="Tbl_Positions" Type="Self.Tbl_Positions" Multiplicity="1" />
+          <End Role="Tbl_Persons" Type="Self.Tbl_Persons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Positions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Tbl_Persons">
+              <PropertyRef Name="PositionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Persons_Tbl_Rols">
+          <End Role="Tbl_Rols" Type="Self.Tbl_Rols" Multiplicity="1" />
+          <End Role="Tbl_Persons" Type="Self.Tbl_Persons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Rols">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Tbl_Persons">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_UseVacationCount_Tbl_Persons">
+          <End Role="Tbl_Persons" Type="Self.Tbl_Persons" Multiplicity="1" />
+          <End Role="Tbl_UseVacationCount" Type="Self.Tbl_UseVacationCount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Persons">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Tbl_UseVacationCount">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_VacationAppeals_Tbl_Persons">
+          <End Role="Tbl_Persons" Type="Self.Tbl_Persons" Multiplicity="1" />
+          <End Role="Tbl_VacationAppeals" Type="Self.Tbl_VacationAppeals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Persons">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Tbl_VacationAppeals">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_VacationDays_Tbl_Positions">
+          <End Role="Tbl_Positions" Type="Self.Tbl_Positions" Multiplicity="1" />
+          <End Role="Tbl_VacationDays" Type="Self.Tbl_VacationDays" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Positions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Tbl_VacationDays">
+              <PropertyRef Name="PositionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Vacation_DBModelStoreContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Account" EntityType="Self.Tbl_Account" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Departments" EntityType="Self.Tbl_Departments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Persons" EntityType="Self.Tbl_Persons" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Positions" EntityType="Self.Tbl_Positions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_Rols" EntityType="Self.Tbl_Rols" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_UseVacationCount" EntityType="Self.Tbl_UseVacationCount" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_VacationAppeals" EntityType="Self.Tbl_VacationAppeals" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tbl_VacationDays" EntityType="Self.Tbl_VacationDays" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Tbl_Account_Tbl_Persons" Association="Self.FK_Tbl_Account_Tbl_Persons">
+            <End Role="Tbl_Persons" EntitySet="Tbl_Persons" />
+            <End Role="Tbl_Account" EntitySet="Tbl_Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Persons_Tbl_Departments" Association="Self.FK_Tbl_Persons_Tbl_Departments">
+            <End Role="Tbl_Departments" EntitySet="Tbl_Departments" />
+            <End Role="Tbl_Persons" EntitySet="Tbl_Persons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Persons_Tbl_Positions" Association="Self.FK_Tbl_Persons_Tbl_Positions">
+            <End Role="Tbl_Positions" EntitySet="Tbl_Positions" />
+            <End Role="Tbl_Persons" EntitySet="Tbl_Persons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Persons_Tbl_Rols" Association="Self.FK_Tbl_Persons_Tbl_Rols">
+            <End Role="Tbl_Rols" EntitySet="Tbl_Rols" />
+            <End Role="Tbl_Persons" EntitySet="Tbl_Persons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_UseVacationCount_Tbl_Persons" Association="Self.FK_Tbl_UseVacationCount_Tbl_Persons">
+            <End Role="Tbl_Persons" EntitySet="Tbl_Persons" />
+            <End Role="Tbl_UseVacationCount" EntitySet="Tbl_UseVacationCount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_VacationAppeals_Tbl_Persons" Association="Self.FK_Tbl_VacationAppeals_Tbl_Persons">
+            <End Role="Tbl_Persons" EntitySet="Tbl_Persons" />
+            <End Role="Tbl_VacationAppeals" EntitySet="Tbl_VacationAppeals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_VacationDays_Tbl_Positions" Association="Self.FK_Tbl_VacationDays_Tbl_Positions">
+            <End Role="Tbl_Positions" EntitySet="Tbl_Positions" />
+            <End Role="Tbl_VacationDays" EntitySet="Tbl_VacationDays" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Vacation_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Tbl_Account">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonId" Type="Int32" Nullable="false" />
+          <Property Name="Mail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RegDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Tbl_Persons" Relationship="Self.FK_Tbl_Account_Tbl_Persons" FromRole="Tbl_Account" ToRole="Tbl_Persons" />
+        </EntityType>
+        <EntityType Name="Tbl_Departments">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ShortName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="RegDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Tbl_Persons" Relationship="Self.FK_Tbl_Persons_Tbl_Departments" FromRole="Tbl_Departments" ToRole="Tbl_Persons" />
+        </EntityType>
+        <EntityType Name="Tbl_Persons">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PositionId" Type="Int32" Nullable="false" />
+          <Property Name="DepartmentId" Type="Int32" Nullable="false" />
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="RegDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Tbl_Account" Relationship="Self.FK_Tbl_Account_Tbl_Persons" FromRole="Tbl_Persons" ToRole="Tbl_Account" />
+          <NavigationProperty Name="Tbl_Departments" Relationship="Self.FK_Tbl_Persons_Tbl_Departments" FromRole="Tbl_Persons" ToRole="Tbl_Departments" />
+          <NavigationProperty Name="Tbl_Positions" Relationship="Self.FK_Tbl_Persons_Tbl_Positions" FromRole="Tbl_Persons" ToRole="Tbl_Positions" />
+          <NavigationProperty Name="Tbl_Rols" Relationship="Self.FK_Tbl_Persons_Tbl_Rols" FromRole="Tbl_Persons" ToRole="Tbl_Rols" />
+          <NavigationProperty Name="Tbl_UseVacationCount" Relationship="Self.FK_Tbl_UseVacationCount_Tbl_Persons" FromRole="Tbl_Persons" ToRole="Tbl_UseVacationCount" />
+          <NavigationProperty Name="Tbl_VacationAppeals" Relationship="Self.FK_Tbl_VacationAppeals_Tbl_Persons" FromRole="Tbl_Persons" ToRole="Tbl_VacationAppeals" />
+        </EntityType>
+        <EntityType Name="Tbl_Positions">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RegDate" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="Tbl_Persons" Relationship="Self.FK_Tbl_Persons_Tbl_Positions" FromRole="Tbl_Positions" ToRole="Tbl_Persons" />
+          <NavigationProperty Name="Tbl_VacationDays" Relationship="Self.FK_Tbl_VacationDays_Tbl_Positions" FromRole="Tbl_Positions" ToRole="Tbl_VacationDays" />
+          <Property Name="Position" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Tbl_Rols">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RegDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Tbl_Persons" Relationship="Self.FK_Tbl_Persons_Tbl_Rols" FromRole="Tbl_Rols" ToRole="Tbl_Persons" />
+        </EntityType>
+        <EntityType Name="Tbl_UseVacationCount">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonId" Type="Int32" Nullable="false" />
+          <Property Name="UsedVacationDaysCount" Type="Int32" Nullable="false" />
+          <Property Name="Regdate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Tbl_Persons" Relationship="Self.FK_Tbl_UseVacationCount_Tbl_Persons" FromRole="Tbl_UseVacationCount" ToRole="Tbl_Persons" />
+        </EntityType>
+        <EntityType Name="Tbl_VacationAppeals">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonId" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Boolean" />
+          <Property Name="RegDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DayCount" Type="Int32" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Tbl_Persons" Relationship="Self.FK_Tbl_VacationAppeals_Tbl_Persons" FromRole="Tbl_VacationAppeals" ToRole="Tbl_Persons" />
+        </EntityType>
+        <EntityType Name="Tbl_VacationDays">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DayCount" Type="Int32" Nullable="false" />
+          <Property Name="PositionId" Type="Int32" Nullable="false" />
+          <Property Name="Note" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="RegDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Tbl_Positions" Relationship="Self.FK_Tbl_VacationDays_Tbl_Positions" FromRole="Tbl_VacationDays" ToRole="Tbl_Positions" />
+        </EntityType>
+        <Association Name="FK_Tbl_Account_Tbl_Persons">
+          <End Role="Tbl_Persons" Type="Self.Tbl_Persons" Multiplicity="1" />
+          <End Role="Tbl_Account" Type="Self.Tbl_Account" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Persons">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Tbl_Account">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Persons_Tbl_Departments">
+          <End Role="Tbl_Departments" Type="Self.Tbl_Departments" Multiplicity="1" />
+          <End Role="Tbl_Persons" Type="Self.Tbl_Persons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Departments">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Tbl_Persons">
+              <PropertyRef Name="DepartmentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Persons_Tbl_Positions">
+          <End Role="Tbl_Positions" Type="Self.Tbl_Positions" Multiplicity="1" />
+          <End Role="Tbl_Persons" Type="Self.Tbl_Persons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Positions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Tbl_Persons">
+              <PropertyRef Name="PositionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_Persons_Tbl_Rols">
+          <End Role="Tbl_Rols" Type="Self.Tbl_Rols" Multiplicity="1" />
+          <End Role="Tbl_Persons" Type="Self.Tbl_Persons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Rols">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Tbl_Persons">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_UseVacationCount_Tbl_Persons">
+          <End Role="Tbl_Persons" Type="Self.Tbl_Persons" Multiplicity="1" />
+          <End Role="Tbl_UseVacationCount" Type="Self.Tbl_UseVacationCount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Persons">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Tbl_UseVacationCount">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_VacationAppeals_Tbl_Persons">
+          <End Role="Tbl_Persons" Type="Self.Tbl_Persons" Multiplicity="1" />
+          <End Role="Tbl_VacationAppeals" Type="Self.Tbl_VacationAppeals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Persons">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Tbl_VacationAppeals">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tbl_VacationDays_Tbl_Positions">
+          <End Role="Tbl_Positions" Type="Self.Tbl_Positions" Multiplicity="1" />
+          <End Role="Tbl_VacationDays" Type="Self.Tbl_VacationDays" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tbl_Positions">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Tbl_VacationDays">
+              <PropertyRef Name="PositionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Vacation_DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Tbl_Account" EntityType="Self.Tbl_Account" />
+          <EntitySet Name="Tbl_Departments" EntityType="Self.Tbl_Departments" />
+          <EntitySet Name="Tbl_Persons" EntityType="Self.Tbl_Persons" />
+          <EntitySet Name="Tbl_Positions" EntityType="Self.Tbl_Positions" />
+          <EntitySet Name="Tbl_Rols" EntityType="Self.Tbl_Rols" />
+          <EntitySet Name="Tbl_UseVacationCount" EntityType="Self.Tbl_UseVacationCount" />
+          <EntitySet Name="Tbl_VacationAppeals" EntityType="Self.Tbl_VacationAppeals" />
+          <EntitySet Name="Tbl_VacationDays" EntityType="Self.Tbl_VacationDays" />
+          <AssociationSet Name="FK_Tbl_Account_Tbl_Persons" Association="Self.FK_Tbl_Account_Tbl_Persons">
+            <End Role="Tbl_Persons" EntitySet="Tbl_Persons" />
+            <End Role="Tbl_Account" EntitySet="Tbl_Account" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Persons_Tbl_Departments" Association="Self.FK_Tbl_Persons_Tbl_Departments">
+            <End Role="Tbl_Departments" EntitySet="Tbl_Departments" />
+            <End Role="Tbl_Persons" EntitySet="Tbl_Persons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Persons_Tbl_Positions" Association="Self.FK_Tbl_Persons_Tbl_Positions">
+            <End Role="Tbl_Positions" EntitySet="Tbl_Positions" />
+            <End Role="Tbl_Persons" EntitySet="Tbl_Persons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_Persons_Tbl_Rols" Association="Self.FK_Tbl_Persons_Tbl_Rols">
+            <End Role="Tbl_Rols" EntitySet="Tbl_Rols" />
+            <End Role="Tbl_Persons" EntitySet="Tbl_Persons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_UseVacationCount_Tbl_Persons" Association="Self.FK_Tbl_UseVacationCount_Tbl_Persons">
+            <End Role="Tbl_Persons" EntitySet="Tbl_Persons" />
+            <End Role="Tbl_UseVacationCount" EntitySet="Tbl_UseVacationCount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_VacationAppeals_Tbl_Persons" Association="Self.FK_Tbl_VacationAppeals_Tbl_Persons">
+            <End Role="Tbl_Persons" EntitySet="Tbl_Persons" />
+            <End Role="Tbl_VacationAppeals" EntitySet="Tbl_VacationAppeals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tbl_VacationDays_Tbl_Positions" Association="Self.FK_Tbl_VacationDays_Tbl_Positions">
+            <End Role="Tbl_Positions" EntitySet="Tbl_Positions" />
+            <End Role="Tbl_VacationDays" EntitySet="Tbl_VacationDays" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Vacation_DBModelStoreContainer" CdmEntityContainer="Vacation_DBEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="Vacation_DBModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Account">
+            <EntityTypeMapping TypeName="Vacation_DBModel.Tbl_Account">
+              <MappingFragment StoreEntitySet="Tbl_Account">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="RegDate" ColumnName="RegDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Departments">
+            <EntityTypeMapping TypeName="Vacation_DBModel.Tbl_Departments">
+              <MappingFragment StoreEntitySet="Tbl_Departments">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="RegDate" ColumnName="RegDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Persons">
+            <EntityTypeMapping TypeName="Vacation_DBModel.Tbl_Persons">
+              <MappingFragment StoreEntitySet="Tbl_Persons">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="PositionId" ColumnName="PositionId" />
+                <ScalarProperty Name="DepartmentId" ColumnName="DepartmentId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RegDate" ColumnName="RegDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Positions">
+            <EntityTypeMapping TypeName="Vacation_DBModel.Tbl_Positions">
+              <MappingFragment StoreEntitySet="Tbl_Positions">
+                <ScalarProperty Name="Position" ColumnName="Position" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="RegDate" ColumnName="RegDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_Rols">
+            <EntityTypeMapping TypeName="Vacation_DBModel.Tbl_Rols">
+              <MappingFragment StoreEntitySet="Tbl_Rols">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RegDate" ColumnName="RegDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_UseVacationCount">
+            <EntityTypeMapping TypeName="Vacation_DBModel.Tbl_UseVacationCount">
+              <MappingFragment StoreEntitySet="Tbl_UseVacationCount">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="UsedVacationDaysCount" ColumnName="UsedVacationDaysCount" />
+                <ScalarProperty Name="Regdate" ColumnName="Regdate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_VacationAppeals">
+            <EntityTypeMapping TypeName="Vacation_DBModel.Tbl_VacationAppeals">
+              <MappingFragment StoreEntitySet="Tbl_VacationAppeals">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="RegDate" ColumnName="RegDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="DayCount" ColumnName="DayCount" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tbl_VacationDays">
+            <EntityTypeMapping TypeName="Vacation_DBModel.Tbl_VacationDays">
+              <MappingFragment StoreEntitySet="Tbl_VacationDays">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="DayCount" ColumnName="DayCount" />
+                <ScalarProperty Name="PositionId" ColumnName="PositionId" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="RegDate" ColumnName="RegDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

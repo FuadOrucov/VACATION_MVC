@@ -1,0 +1,42 @@
+﻿@model VOCATION_MVC.Models.Tbl_VacationDays
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Tbl_Positions.Position)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tbl_Positions.Position)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.DayCount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DayCount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Note)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Note)
+        </dd>
+
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
